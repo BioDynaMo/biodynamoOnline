@@ -26,4 +26,13 @@ ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html 2>/dev/null
 # Start websockify in background
 nohup websockify --web=/usr/share/novnc 6080 localhost:5900 > /tmp/websockify.log 2>&1 &
 
+# Wait for port 6080 to be ready before exiting
+for i in $(seq 1 30); do
+  if grep -q "handler" /tmp/websockify.log 2>/dev/null || \
+     bash -c "echo >/dev/tcp/localhost/6080" 2>/dev/null; then
+    break
+  fi
+  sleep 1
+done
+
 echo "VNC desktop running on port 6080"
