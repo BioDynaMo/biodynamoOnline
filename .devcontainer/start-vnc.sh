@@ -1,5 +1,7 @@
 #!/bin/bash
 export DISPLAY=:1
+export XDG_RUNTIME_DIR=/tmp/runtime-root
+mkdir -p "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
 
 # Kill any existing processes
 killall Xvfb x11vnc fluxbox websockify 2>/dev/null || true
@@ -7,24 +9,24 @@ rm -f /tmp/.X1-lock /tmp/.X11-unix/X1 2>/dev/null
 sleep 1
 
 # Start Xvfb virtual framebuffer
-Xvfb :1 -screen 0 1920x1080x24 &
+nohup Xvfb :1 -screen 0 1920x1080x24 > /tmp/xvfb.log 2>&1 &
 sleep 2
 
 # Start window manager
-fluxbox &
+nohup fluxbox > /tmp/fluxbox.log 2>&1 &
 sleep 1
 
 # Start x11vnc to mirror the Xvfb display over VNC (port 5900)
-x11vnc -display :1 -forever -nopw -rfbport 5900 -shared -bg
+nohup x11vnc -display :1 -forever -nopw -rfbport 5900 -shared > /tmp/x11vnc.log 2>&1 &
+sleep 1
 
 # Symlink for noVNC landing page
-sudo ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html 2>/dev/null
+ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html 2>/dev/null
 
-# Start websockify to bridge VNC to browser via noVNC (port 6080)
-websockify --web=/usr/share/novnc 6080 localhost:5900 &
-
+# Start websockify in foreground to keep postStartCommand alive
 echo ""
 echo "=== VNC Desktop Ready ==="
-echo "Open the 'Ports' tab, find port 6080, and click 'Open in Browser'"
-echo "You can now run ParaView or any GUI application!"
+echo "Port 6080 will open automatically with the virtual desktop."
+echo "Run 'paraview' or 'bdm view' and the GUI appears there."
 echo ""
+exec websockify --web=/usr/share/novnc 6080 localhost:5900

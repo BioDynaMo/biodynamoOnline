@@ -6,6 +6,7 @@ ENV PYENV_ROOT="/opt/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PATH"
 ENV PATH="/opt/.pyenv/versions/3.9.1/bin/:$PATH"
 ENV DISPLAY=:1
+ENV XDG_RUNTIME_DIR=/tmp/runtime-root
 
 RUN unset Qt5_DIR ParaView_DIR ROOT_INCLUDE_PATH CMAKE_PREFIX_PATH PYENV_ROOT BDMSYS CC CXX
 
@@ -56,6 +57,8 @@ RUN export BDM_BRANCH="master" && \
 
 RUN useradd -m -s /bin/bash codespace && \
     echo "codespace ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+RUN mkdir -p /tmp/runtime-root && chmod 700 /tmp/runtime-root
 
 RUN echo 'source /biodynamo/build/bin/thisbdm.sh 2>/dev/null' >> /etc/bash.bashrc
 
