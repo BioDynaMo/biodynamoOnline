@@ -34,7 +34,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && \
     python3 -m pip install -U pip && \
     python3 -m pip install numpy
 
-RUN pip install cmake --upgrade
+RUN pip install 'cmake<4'
 
 RUN git config --system user.name "Test User" && \
     git config --system user.email user@test.com
