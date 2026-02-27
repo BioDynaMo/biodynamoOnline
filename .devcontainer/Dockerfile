@@ -5,6 +5,7 @@ ENV TZ=Europe/Berlin
 ENV PYENV_ROOT="/opt/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PATH"
 ENV PATH="/opt/.pyenv/versions/3.9.1/bin/:$PATH"
+ENV DISPLAY=:1
 
 RUN unset Qt5_DIR ParaView_DIR ROOT_INCLUDE_PATH CMAKE_PREFIX_PATH PYENV_ROOT BDMSYS CC CXX
 
@@ -57,6 +58,8 @@ RUN useradd -m -s /bin/bash codespace && \
     echo "codespace ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 RUN echo 'source /biodynamo/build/bin/thisbdm.sh 2>/dev/null' >> /etc/bash.bashrc
+
+RUN ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html
 
 RUN mkdir -p /opt/scripts
 COPY start-vnc.sh /opt/scripts/start-vnc.sh

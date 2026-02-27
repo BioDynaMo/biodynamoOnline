@@ -9,6 +9,12 @@ echo "" | vncpasswd -f > ~/.vnc/passwd
 chmod 600 ~/.vnc/passwd
 vncserver :1 -geometry 1920x1080 -depth 24 -SecurityTypes None
 
+# Start window manager
+fluxbox &
+
+# Symlink for noVNC landing page (in case it wasn't created at build time)
+sudo ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html 2>/dev/null
+
 websockify --web=/usr/share/novnc 6080 localhost:5901 &
 
 echo ""
