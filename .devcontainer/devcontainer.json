@@ -1,0 +1,25 @@
+{
+  "name": "BioDynaMo Demo",
+  "image": "ghcr.io/biodynamo/demo:latest",
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": {
+      "label": "VNC Desktop (ParaView)",
+      "onAutoForward": "notify"
+    }
+  },
+  "postStartCommand": "/opt/scripts/start-vnc.sh",
+  "postAttachCommand": "source /biodynamo/build/bin/thisbdm.sh",
+  "hostRequirements": {
+    "cpus": 4
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}
