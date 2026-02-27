@@ -18,7 +18,7 @@ RUN apt-get -y update && \
     libffi-dev liblzma-dev libreadline-dev libsqlite3-dev libssl-dev python-openssl tk-dev xz-utils \
     zlib1g-dev sudo libblas-dev liblapack-dev nano locales locales-all ninja-build python3-pip \
     freeglut3-dev valgrind xvfb libtbb-dev \
-    tigervnc-standalone-server tigervnc-common fluxbox websockify \
+    x11vnc fluxbox websockify \
     novnc dbus-x11 x11-utils x11-xserver-utils xterm && \
     dpkg-reconfigure locales && locale-gen && \
     apt-get clean && rm -rf /var/lib/apt/lists/*

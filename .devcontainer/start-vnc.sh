@@ -1,21 +1,25 @@
 #!/bin/bash
 export DISPLAY=:1
 
-vncserver -kill :1 2>/dev/null || true
+# Kill any existing Xvfb or x11vnc
+killall Xvfb x11vnc 2>/dev/null || true
 rm -f /tmp/.X1-lock /tmp/.X11-unix/X1 2>/dev/null
 
-mkdir -p ~/.vnc
-echo "" | vncpasswd -f > ~/.vnc/passwd
-chmod 600 ~/.vnc/passwd
-vncserver :1 -geometry 1920x1080 -depth 24 -SecurityTypes None
+# Start Xvfb virtual framebuffer
+Xvfb :1 -screen 0 1920x1080x24 &
+sleep 1
 
 # Start window manager
 fluxbox &
 
-# Symlink for noVNC landing page (in case it wasn't created at build time)
+# Start x11vnc to mirror the Xvfb display over VNC (port 5900)
+x11vnc -display :1 -forever -nopw -rfbport 5900 -shared &
+
+# Symlink for noVNC landing page
 sudo ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html 2>/dev/null
 
-websockify --web=/usr/share/novnc 6080 localhost:5901 &
+# Start websockify to bridge VNC to browser via noVNC (port 6080)
+websockify --web=/usr/share/novnc 6080 localhost:5900 &
 
 echo ""
 echo "=== VNC Desktop Ready ==="
