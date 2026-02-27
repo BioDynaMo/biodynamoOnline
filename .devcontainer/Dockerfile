@@ -4,7 +4,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Berlin
 ENV PYENV_ROOT="/opt/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PATH"
-ENV PATH="/miniconda3/bin:$PATH"
 ENV PATH="/opt/.pyenv/versions/3.9.1/bin/:$PATH"
 
 RUN unset Qt5_DIR ParaView_DIR ROOT_INCLUDE_PATH CMAKE_PREFIX_PATH PYENV_ROOT BDMSYS CC CXX
@@ -22,12 +21,6 @@ RUN apt-get -y update && \
     novnc dbus-x11 x11-utils x11-xserver-utils xterm && \
     dpkg-reconfigure locales && locale-gen && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    bash Miniconda3-latest-Linux-x86_64.sh -b -f -p /miniconda3/ && \
-    rm Miniconda3-latest-Linux-x86_64.sh && \
-    conda install -y -c conda-forge pip numpy && \
-    conda update -y --all
 
 RUN curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash && \
     eval "$(pyenv init --path)" && \
