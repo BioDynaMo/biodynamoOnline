@@ -67,3 +67,6 @@ RUN ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html
 RUN mkdir -p /opt/scripts
 COPY start-vnc.sh /opt/scripts/start-vnc.sh
 RUN chmod +x /opt/scripts/start-vnc.sh
+
+COPY paraview-wrapper.sh /usr/local/bin/paraview
+RUN chmod +x /usr/local/bin/paraview

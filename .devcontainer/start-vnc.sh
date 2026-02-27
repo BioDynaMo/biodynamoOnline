@@ -23,10 +23,7 @@ sleep 1
 # Symlink for noVNC landing page
 ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html 2>/dev/null
 
-# Start websockify in foreground to keep postStartCommand alive
-echo ""
-echo "=== VNC Desktop Ready ==="
-echo "Port 6080 will open automatically with the virtual desktop."
-echo "Run 'paraview' or 'bdm view' and the GUI appears there."
-echo ""
-exec websockify --web=/usr/share/novnc 6080 localhost:5900
+# Start websockify in background
+nohup websockify --web=/usr/share/novnc 6080 localhost:5900 > /tmp/websockify.log 2>&1 &
+
+echo "VNC desktop running on port 6080"

@@ -8,6 +8,9 @@
       "onAutoForward": "openBrowser"
     }
   },
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
+  },
   "postStartCommand": "/opt/scripts/start-vnc.sh",
   "postAttachCommand": "source /biodynamo/build/bin/thisbdm.sh",
   "hostRequirements": {
