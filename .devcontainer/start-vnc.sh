@@ -24,9 +24,6 @@ start-stop-daemon --start --background --pidfile /tmp/x11vnc.pid --make-pidfile 
   --exec /usr/bin/x11vnc -- -display :1 -forever -nopw -rfbport 5900 -shared
 sleep 1
 
-# Symlink for noVNC landing page
-ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html 2>/dev/null
-
 # Start websockify
 start-stop-daemon --start --background --pidfile /tmp/websockify.pid --make-pidfile \
   --startas /usr/bin/websockify -- --web=/usr/share/novnc 6080 localhost:5900

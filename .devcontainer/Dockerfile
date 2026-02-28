@@ -62,7 +62,7 @@ RUN mkdir -p /tmp/runtime-root && chmod 700 /tmp/runtime-root
 
 RUN echo 'source /biodynamo/build/bin/thisbdm.sh 2>/dev/null' >> /etc/bash.bashrc
 
-RUN ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html
+COPY novnc-index.html /usr/share/novnc/index.html
 
 RUN mkdir -p /opt/scripts
 COPY start-vnc.sh /opt/scripts/start-vnc.sh
