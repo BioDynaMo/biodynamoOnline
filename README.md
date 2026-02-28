@@ -27,6 +27,26 @@
   <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 </p>
 
+## Try it online
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/BioDynaMo/biodynamoOnline)
+
+Click the badge above to launch a pre-configured BioDynaMo environment in your browser.
+You just need a free GitHub account (120 core-hours/month free).
+
+### Quick start
+
+Once the codespace loads, run a demo:
+```bash
+cd demo/cell_division
+bdm build
+bdm run
+bdm view   # opens ParaView on the VNC desktop
+```
+
+A **VNC desktop** tab opens automatically in your browser (port 6080).
+ParaView and other GUI applications render there.
+
 ## What is BioDynaMo?
 
 BioDynaMo is a software platform to easily create, run, and visualise 3D agent-based simulations.
