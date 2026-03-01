@@ -31,7 +31,7 @@ if [[ -n "$choice" ]] && [[ "$choice" -ge 1 ]] && [[ "$choice" -le "${#demos[@]}
   echo "Changed to demo/$selected"
 
   if [ -f README.md ]; then
-    code README.md
+    code --command markdown.showPreview README.md
   fi
 
   echo "Run: bdm build && bdm run"
