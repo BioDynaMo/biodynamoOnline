@@ -67,6 +67,8 @@ COPY novnc-index.html /usr/share/novnc/index.html
 RUN mkdir -p /opt/scripts
 COPY start-vnc.sh /opt/scripts/start-vnc.sh
 RUN chmod +x /opt/scripts/start-vnc.sh
+COPY demo-picker.sh /opt/scripts/demo-picker.sh
+RUN chmod +x /opt/scripts/demo-picker.sh
 
 COPY paraview-wrapper.sh /usr/local/bin/paraview
 RUN chmod +x /usr/local/bin/paraview

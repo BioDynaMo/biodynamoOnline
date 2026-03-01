@@ -12,7 +12,7 @@
     "onAutoForward": "ignore"
   },
   "postStartCommand": "/opt/scripts/start-vnc.sh",
-  "postAttachCommand": "source /biodynamo/build/bin/thisbdm.sh",
+  "postAttachCommand": "source /biodynamo/build/bin/thisbdm.sh && /opt/scripts/demo-picker.sh",
   "hostRequirements": {
     "cpus": 4
   },
